@@ -13,21 +13,30 @@ export default function TabTwoScreen() {
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
       headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Règles</ThemedText>
+        <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
-      <ThemedText>Cette application ne vous donne pas le droit de vous rendre dans des propriétés privés ou des zones interdites.</ThemedText>
-      <Collapsible title="Temps de jeu">
+      <ThemedText>This app includes example code to help you get started.</ThemedText>
+      <Collapsible title="File-based routing">
         <ThemedText>
-          La partie sera chronometré, avec un temps de jeu prédéfini, ce temps de jeu sera également représenté par la zone.
+          This app has two screens:{' '}
+          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
+          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
+        </ThemedText>
+        <ThemedText>
+          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
+          sets up the tab navigator.
+        </ThemedText>
+        <ExternalLink href="https://docs.expo.dev/router/introduction">
+          <ThemedText type="link">Learn more</ThemedText>
+        </ExternalLink>
+      </Collapsible>
+      <Collapsible title="Android, iOS, and web support">
+        <ThemedText>
+          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
+          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
         </ThemedText>
       </Collapsible>
-      <Collapsible title="La Zone">
-        <ThemedText>
-          La zone sera définie par l'hôte de la session, et s'affichera sur votre carte. Elle correspond aux délimitations de la zone de jeu, toute sortie supérieure à 5 secondes
-          entrainera la défaite du joueur. Le chasseur peut lui quitter cette zone sans délimitation de temps, les joueurs seront averties. La Zone rétréciera au cours de la partie.
-        </ThemedText>
-      </Collapsible>
-      {/* <Collapsible title="Images">
+      <Collapsible title="Images">
         <ThemedText>
           For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
           <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
@@ -74,7 +83,7 @@ export default function TabTwoScreen() {
             </ThemedText>
           ),
         })}
-      </Collapsible> */}
+      </Collapsible>
     </ParallaxScrollView>
   );
 }
