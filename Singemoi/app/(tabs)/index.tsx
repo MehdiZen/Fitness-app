@@ -1,70 +1,101 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React, { useState } from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  View,
+  FlatList,
+  Pressable
+} from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const App = () => {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=${query}`, {
+        headers: {
+          'x-app-id': '1d4750fc', 
+          'x-app-key': 'c9c83622c701dc845c112fd353748592',
+        },
+      });
+      const data = await response.json();
+      setResults(data.common);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const renderItem = ({ item }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{item.food_name}</Text>
+    </View>
   );
-}
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>Nutrition Information</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Search for a food"
+        value={query}
+        onChangeText={setQuery}
+        onSubmitEditing={fetchData}
+      />
+      <Pressable style={styles.button} onPress={fetchData}>
+        <Text style={styles.buttonText}>Search</Text>
+      </Pressable>
+      <FlatList
+        data={results}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.food_name}
+      />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    marginTop: 20,
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 8,
+  },
+  button: {
+    backgroundColor: '#1E90FF',
+    padding: 10,
+    borderRadius: 5,
     alignItems: 'center',
-    gap: 8,
+    marginBottom: 16,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  item: {
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  title: {
+    fontSize: 18,
   },
 });
+
+export default App;
