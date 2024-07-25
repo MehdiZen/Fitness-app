@@ -21,6 +21,15 @@ const App = () => {
     nf_total_carbohydrate?: number;
   }
 
+  interface foodElement {
+    item: {
+      food_name: string;
+      photo: {
+        thumb: string
+      };
+    }
+  }
+
 
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -38,7 +47,7 @@ const App = () => {
       });
       const data = await response.json();
       setResults(data.common);
-      console.log(data);
+      console.log('result=>', data);
     } catch (error) {
       console.error(error);
     }
@@ -57,13 +66,14 @@ const App = () => {
       });
       const data = await response.json();
       setFood(data.foods[0]);
+      console.log('food =>', data.foods[0])
       setModalVisible(true);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ( {item}: any) => (
     <Pressable style={styles.item} onPress={() => fetchSelected(item.food_name)}>
       <Image
         style={{width: 50, height: 50}} 
@@ -90,7 +100,7 @@ const App = () => {
       <FlatList
         data={results}
         renderItem={renderItem}
-        keyExtractor={(item) => item.food_name} />
+        keyExtractor={({item}: foodElement) => item.food_name} />
 
       <Modal visible={isModalVisible}>
         <View style={styles.modalContent}>
