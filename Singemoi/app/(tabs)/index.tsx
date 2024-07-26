@@ -100,7 +100,7 @@ const App = () => {
       <FlatList
         data={results}
         renderItem={renderItem}
-        keyExtractor={({item}: foodElement) => item.food_name} />
+        keyExtractor={({item, index}: any) => index} />
 
       <Modal visible={isModalVisible}>
         <View style={styles.modalContent}>

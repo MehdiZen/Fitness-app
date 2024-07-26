@@ -33,6 +33,15 @@ export default function TabLayout() {
         }}
       />
        <Tabs.Screen
+        name="sport"
+        options={{
+          title: 'Exercices',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          ),
+        }}
+      />
+       <Tabs.Screen
         name="scan"
         options={{
           title: 'Scan',
