@@ -138,7 +138,7 @@ const App = () => {
       <FlatList
         data={results}
         renderItem={renderItem}
-        keyExtractor={({item, index}: any) => index} />
+        keyExtractor={(item, index) => index.toString()} />
 
       <Modal visible={isModalVisible}>
         <View style={styles.modalContent}>
@@ -185,10 +185,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#b6e0bf',
   },
   header: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 16,
+    color: '#2e7d32',
   },
   input: {
     height: 40,
@@ -196,62 +197,67 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     paddingHorizontal: 8,
+    borderRadius: 8,
+    backgroundColor: '#ffffff',
   },
   button: {
-    backgroundColor: '#1E90FF',
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#2e7d32',
+    padding: 12,
+    borderRadius: 8,
     alignItems: 'center',
     marginBottom: 16,
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   item: {
-    display: 'flex',
     flexDirection: 'row',
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    alignItems: 'center',
   },
   title: {
     fontWeight: 'bold',
     fontSize: 18,
     paddingLeft: 10,
-    display: 'flex',
-    alignItems: 'center'
   },
   modalContent: {
-    height: '100vh',
+    flex: 1,
     backgroundColor: 'white',
     padding: 22,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
- 
   },
   modalTitle: {
-    fontSize: 44,
+    fontSize: 32,
     fontWeight: 'bold',
-    fontStyle: 'italic',
-    marginBottom: 26,
+    marginBottom: 20,
+    color: '#2e7d32',
   },
   modalElement: {
-   fontSize: 26,
-    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 10,
   },
   closeButton: {
-    backgroundColor: '#1E90FF',
+    backgroundColor: '#2e7d32',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
     alignItems: 'center',
     marginTop: 16,
   },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
   foodLogo: {
     width: 50,
-    height: 50
-  }
+    height: 50,
+    borderRadius: 25,
+  },
 });
 
 export default App;

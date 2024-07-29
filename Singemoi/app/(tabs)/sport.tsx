@@ -150,16 +150,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#b6e0bf',
   },
   header: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
+    color: '#2e7d32',
   },
   item: {
-    padding: 10,
+    padding: 12,
     marginVertical: 8,
     backgroundColor: '#fff',
-    borderRadius: 5,
+    borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -167,7 +168,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 20,
+    color: '#2e7d32',
   },
   modalSuperposition: {
     flex: 1,
@@ -182,33 +184,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
     maxWidth: 400,
-    maxHeight: '80%'
+    maxHeight: '80%',
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#2e7d32',
   },
   modalText: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 5,
   },
   modalTitles: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 5,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#2e7d32',
   },
   closeButton: {
-    backgroundColor: '#1E90FF',
+    backgroundColor: '#2e7d32',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
     alignItems: 'center',
     marginTop: 16,
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
+
 
 export default App;

@@ -118,12 +118,14 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#2e7d32',
   },
   text: {
-    fontSize: 18,
+    fontSize: 20,
     marginVertical: 10,
+    color: '#2e7d32',
   },
 });

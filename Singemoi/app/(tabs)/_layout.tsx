@@ -19,7 +19,7 @@ export default function TabLayout() {
         options={{
           title: 'Nutrition',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <TabBarIcon name={focused ? 'nutrition' : 'nutrition-outline'} color={color} />
           ),
         }}
       />
@@ -28,25 +28,25 @@ export default function TabLayout() {
         options={{
           title: 'Steps',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'walk' : 'walk-outline'} color={color} />
           ),
         }}
       />
-       <Tabs.Screen
+      <Tabs.Screen
         name="sport"
         options={{
           title: 'Exercices',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'fitness' : 'fitness-outline'} color={color} />
           ),
         }}
       />
-       <Tabs.Screen
+      <Tabs.Screen
         name="scan"
         options={{
           title: 'Scan',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'barcode' : 'barcode-outline'} color={color} />
           ),
         }}
       />
