@@ -99,9 +99,10 @@ const App = () => {
 
   const handleFetchWeather = async () => {
     const data = await getWeather();
+    console.log('cheers');
     setWeather(data.main.temp);
   };
-  
+  handleFetchWeather();
   useEffect(() => {
     pushNotificationToken();
 
