@@ -1,0 +1,8 @@
+api nutritionix x2
+api openfoodfacts
+api api-ninjas/exercice
+api weather
+
+pedometre
+notification push
+camera

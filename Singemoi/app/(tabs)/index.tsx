@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,8 +11,18 @@ import {
   Image,
   Modal
 } from 'react-native';
-
+import * as Notifications from 'expo-notifications';
+import { pushNotificationToken } from '../../services/pushNotificationToken'; 
+import { getWeather } from '@/components/weatherAPI';
 const App = () => {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
+  
   interface FoodDetails {
     food_name: string;
     nf_calories?: number;
@@ -47,7 +57,6 @@ const App = () => {
       });
       const data = await response.json();
       setResults(data.common);
-      console.log('result=>', data);
     } catch (error) {
       console.error(error);
     }
@@ -66,7 +75,6 @@ const App = () => {
       });
       const data = await response.json();
       setFood(data.foods[0]);
-      console.log('food =>', data.foods[0])
       setModalVisible(true);
     } catch (error) {
       console.error(error);
@@ -83,6 +91,36 @@ const App = () => {
       <Text style={styles.title}>{item.food_name}</Text>
     </Pressable>
   );
+
+  // Partie notification + meteox
+  const notificationListener = useRef<Notifications.Subscription | null>(null);
+  const responseListener = useRef<Notifications.Subscription | null>(null);
+  const [weather, setWeather] = useState<number>(10);
+
+  const handleFetchWeather = async () => {
+    const data = await getWeather();
+    setWeather(data.main.temp);
+  };
+  
+  useEffect(() => {
+    pushNotificationToken();
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    });
+
+    return () => {
+      if (notificationListener.current) {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+      }
+      if (responseListener.current) {
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
+    };
+  }, []);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -118,6 +156,22 @@ const App = () => {
           </Pressable>
         </View>
       </Modal>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        title="NOTIFICATOR B28V3600X"
+        onPress={async () => {
+          await handleFetchWeather();
+          await Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Singemoi veut ton bien",
+              body: weather > 20 ? `${weather}° dehors? Va boire de l'eau il fait soif`: `Ok il fait que ${weather}°, mais bois un verre d'eau quand même stp`,
+              data: { data: 'goes here' },
+            },
+            trigger: { seconds: 2 },
+          });
+        }}
+      />
+    </View>
 
     </SafeAreaView>
   );
